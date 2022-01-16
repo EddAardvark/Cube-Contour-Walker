@@ -184,7 +184,7 @@ public:
         return (*this) + n;
     }
     //--------------------------------------------------------------------------------------------
-    // Add a simple number (this number is truncated to an integer)
+    // Subtract a simple number
     // TODO: Optimise using values directly
     //--------------------------------------------------------------------------------------------
     inline VLInt operator - (__int64 num) const
@@ -218,7 +218,7 @@ public:
     //--------------------------------------------------------------------------------------------
     // Post increment
     //--------------------------------------------------------------------------------------------
-    inline VLInt& operator ++ (int)
+    inline VLInt operator ++ (int)
     {
         VLInt temp = *this;
         
@@ -250,7 +250,7 @@ public:
     //--------------------------------------------------------------------------------------------
     // Post decrement
     //--------------------------------------------------------------------------------------------
-    inline VLInt& operator -- (int)
+    inline VLInt operator -- (int)
     {
         VLInt temp = *this;
 
