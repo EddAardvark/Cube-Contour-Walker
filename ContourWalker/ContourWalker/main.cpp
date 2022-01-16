@@ -5,6 +5,7 @@
 
 #include "VLInt.h"
 #include "BigCube.h"
+#include "SubCube.h"
 
 void RunTests()
 {
@@ -14,6 +15,7 @@ void RunTests()
     {
         VLInt::Test();
         BigCube::Test();
+        SubCube::Test();
     }
     catch (std::exception & ex)
     {

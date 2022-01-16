@@ -6,13 +6,9 @@
 // Implements a big cube using big integers
 // Implements increment and decrement operators using decrements to avoid big multiplications.
 //
-// (c) John Whitehouse 2013 - 2019
+// (c) John Whitehouse 2019 - 2022
 // www.eddaardvark.co.uk
-//
-// None of the methods in this class alter the instance so it is safe to reuse them rather then having
-// to clone when assigning.
 //-------------------------------------------------------------------------------------------------
-
 
 
 class BigCube
@@ -99,7 +95,7 @@ public:
     //--------------------------------------------------------------------------------------------
     // Post increment
     //--------------------------------------------------------------------------------------------
-    inline BigCube& operator ++ (int)
+    inline BigCube operator ++ (int)
     {
         BigCube temp = *this;
 
@@ -115,6 +111,16 @@ public:
         dy = dy - ddy;
         value = value - dy;
         --root;
+    }
+    //--------------------------------------------------------------------------------------------
+    // Post decrement
+    //--------------------------------------------------------------------------------------------
+    inline BigCube operator -- (int)
+    {
+        BigCube temp = *this;
+
+        --(*this);
+        return temp;
     }
     //-------------------------------------------------------------------------------------------------
     inline BigCube GetNext() const
