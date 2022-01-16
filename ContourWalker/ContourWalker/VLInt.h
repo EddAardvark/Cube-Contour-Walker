@@ -4,7 +4,7 @@
 // Stores very large integers as a set of smaller ones (base 10^N)
 // (c) John Whitehouse 2019-2022
 // www.eddaardvark.co.uk
-//---------------
+//-------------------------------------------------------------------------------------------------
 
 #include <vector>
 #include <string>
@@ -17,9 +17,7 @@
 class VLInt
 {
 
-// MAX_SAFE_INTEGER = 9007199254740991
-// Base = biggest power of 10 <= sqrt (MAX)
-// I want to work in powers of 10 so I'm doing the maths base 10^n, makes printing easier
+// Base = 100 million, I want to work in powers of 10 so I'm doing the maths base 10^n, makes printing and debugging easier
 
     static const int DIGITS = 8; 
     static const int BASE = 100000000; // 10^DIGITS
@@ -874,7 +872,7 @@ public:
         return (positive) ? ret : -ret;
     }
     //=========================================================================================================
-    // Monitoring and debugging
+    // Monitoring and Testing
     //=========================================================================================================
     inline std::string toString () const
     {

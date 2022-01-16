@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "VLInt.h"
+#include "BigCube.h"
 
 void RunTests()
 {
@@ -12,6 +13,7 @@ void RunTests()
     try
     {
         VLInt::Test();
+        BigCube::Test();
     }
     catch (std::exception & ex)
     {
