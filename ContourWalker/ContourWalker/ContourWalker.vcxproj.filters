@@ -21,9 +21,15 @@
     <ClCompile Include="VLInt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BigCube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VLInt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BigCube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

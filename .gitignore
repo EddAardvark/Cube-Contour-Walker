@@ -35,3 +35,6 @@
 ContourWalker/ContourWalker/x64/Debug/*.*
 ContourWalker/x64/Debug
 ContourWalker/.vs
+.vs/slnx.sqlite
+.vs/contour_walker/project-colors.json
+.vs/contour_walker/v17/.suo
