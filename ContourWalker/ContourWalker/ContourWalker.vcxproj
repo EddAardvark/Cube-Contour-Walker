@@ -140,14 +140,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BigCube.cpp" />
+    <ClCompile Include="ContourPoint.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SubCube.cpp" />
     <ClCompile Include="VLInt.cpp" />
+    <ClCompile Include="WalkingResults.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BigCube.h" />
+    <ClInclude Include="ContourPoint.h" />
     <ClInclude Include="SubCube.h" />
     <ClInclude Include="VLInt.h" />
+    <ClInclude Include="WalkingResults.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,10 +15,13 @@ class BigCube
 {
     static const __int64 dddy = 6;   // 3rd derivative is constant
 
+    VLInt   ddy;
+
+public:
+
     VLInt   root;
     VLInt   value;
     VLInt   dy;
-    VLInt   ddy;
 
     inline BigCube() {}
 
@@ -31,8 +34,6 @@ class BigCube
         ddy = other.ddy;
         value = other.value;
     }
-
-public:
 
     inline static BigCube FromInt(__int64 n)
     {
@@ -59,13 +60,6 @@ public:
         ret.value = n3;
         ret.dy = (n2 + n) * 3 + 1;
         ret.ddy = (n + 1) * 6;
-
-        return ret;
-    }
-    //-------------------------------------------------------------------------------------------------
-    inline static BigCube Clone(const BigCube& other)
-    {
-        BigCube ret(other);
 
         return ret;
     }
@@ -125,7 +119,7 @@ public:
     //-------------------------------------------------------------------------------------------------
     inline BigCube GetNext() const
     {
-        BigCube ret = Clone(*this);
+        BigCube ret = *this;
 
         return ++ret;
     }

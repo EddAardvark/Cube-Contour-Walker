@@ -23,12 +23,14 @@ class SubCube
     VLInt ax2;      // 2a
     VLInt a_plus_b; // a + b
     VLInt c;        // n^3
-    VLInt x;        // Current x
-    VLInt n;        // Contour
-    VLInt value;    // The value (ax^2 + bx + c)
-    VLInt dv;       // 2ax + (a+b+c)
     VLInt ddv;      // 2a
 
+public:
+
+    VLInt value;    // The value (ax^2 + bx + c)
+    VLInt dv;       // 2ax + (a+b+c)
+    VLInt x;        // Current x
+    VLInt n;        // Contour
 
     //-------------------------------------------------------------------------------------------------
     inline SubCube()
@@ -49,8 +51,6 @@ class SubCube
         dv = other.dv;
         ddv = other.ddv;
     }
-
-public:
 
 
     //-------------------------------------------------------------------------------------------------
