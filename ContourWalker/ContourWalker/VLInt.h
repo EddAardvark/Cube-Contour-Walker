@@ -2,6 +2,7 @@
 
 //-------------------------------------------------------------------------------------------------
 // Stores very large integers as a set of smaller ones (base 10^N)
+// 
 // (c) John Whitehouse 2019-2022
 // www.eddaardvark.co.uk
 //-------------------------------------------------------------------------------------------------
@@ -25,9 +26,10 @@ class VLInt
     static std::vector<VLInt> powers2;
 
     std::vector<__int64> value;
-    bool positive{true};
 
 public:
+
+    bool positive{ true };
 
     //----------------------------------------------------------------------------------------------------------------
     inline static VLInt MakeZero ()
@@ -825,17 +827,17 @@ public:
         return (m1.first / m2.first) * pow(10, (m1.second - m2.second));
     }
     //------------------------------------------------------------------------------------------------------
-    inline VLInt Square ()
+    inline VLInt Square () const
     {
         return (*this) * (*this);
     }
     //------------------------------------------------------------------------------------------------------
-    inline VLInt Cube ()
+    inline VLInt Cube () const
     {
         return (*this) * (*this) * (*this);
     }
     //------------------------------------------------------------------------------------------------------
-    inline double CubeRoot ()
+    inline double CubeRoot () const
     {
         auto me = MantissaExponent();
 
@@ -849,7 +851,7 @@ public:
     }
     //------------------------------------------------------------------------------------------------------
     // Don't define operator so that we don't call this by mistake
-    inline __int64 ToInt ()
+    inline __int64 ToInt () const
     {
         auto len = value.size();
 
