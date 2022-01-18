@@ -25,12 +25,10 @@ class VLInt
 
     static std::vector<VLInt> powers2;
 
-    std::vector<__int64> value;
-
 public:
 
     bool positive{ true };
-
+    std::vector<__int64> value;
     //----------------------------------------------------------------------------------------------------------------
     inline static VLInt MakeZero ()
     {
