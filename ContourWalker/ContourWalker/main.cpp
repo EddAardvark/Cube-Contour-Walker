@@ -6,6 +6,7 @@
 #include "VLInt.h"
 #include "BigCube.h"
 #include "SubCube.h"
+#include "CommandLine.h"
 
 void RunTests()
 {
@@ -27,5 +28,6 @@ void RunTests()
 
 int main(int argc, char* argv[])
 {
+    CommandLine(argc, argv);
     RunTests();
 }
