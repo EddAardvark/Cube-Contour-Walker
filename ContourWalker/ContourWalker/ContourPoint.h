@@ -3,7 +3,7 @@
 #include "VLInt.h"
 #include "BigCube.h"
 #include "SubCube.h"
-#include "WalkingResults.h"
+#include "Result.h"
 
 //-------------------------------------------------------------------------------------------------
 // Implements a number of the form y^3 - 3nx^2 + 3n^2x + n^3, equivalent to (x+n)^3 - x^3
@@ -29,10 +29,12 @@ class ContourPoint
     VLInt y;
     VLInt n;
     BigCube cube;
-    SubCube subcube;
-    VLInt value;
 
 public:
+
+    SubCube subcube;
+
+    VLInt value;
 
     inline ContourPoint() {}
 
@@ -120,6 +122,11 @@ public:
         subcube.Hop(hop);
 
         value = cube.value  - subcube.value;
+    }
+    //--------------------------------------------------------------------------------------------
+    inline Result GetResult() const
+    {
+        return Result(subcube.x, cube.root, subcube.x + subcube.n, value);
     }
     //--------------------------------------------------------------------------------------------
     inline bool TestValue () const

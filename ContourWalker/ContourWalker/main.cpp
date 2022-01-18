@@ -25,7 +25,7 @@ void RunTests()
 }
 
 
-int main()
+int main(int argc, char* argv[])
 {
     RunTests();
 }
