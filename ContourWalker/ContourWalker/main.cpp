@@ -6,6 +6,7 @@
 #include "VLInt.h"
 #include "BigCube.h"
 #include "SubCube.h"
+#include "CommandLine.h"
 
 void RunTests()
 {
@@ -25,7 +26,31 @@ void RunTests()
 }
 
 
+void RunCalculation(__int64 c)
+{
+    std::cout << "Contour = " << c << std::endl;
+}
+
+
 int main(int argc, char* argv[])
 {
-    RunTests();
+    try
+    {
+        CommandLine cmd (argc, argv);
+
+        if (cmd.RunTests())
+        {
+            RunTests();
+        }
+        RunCalculation(cmd.Contour());
+    }
+    catch (std::exception& ex)
+    {
+        std::cout << ex.what() << std::endl;
+        CommandLine::ShowOptions();
+        exit(-1);
+    }
+
+    exit(0);
+    return 0;
 }
