@@ -41,6 +41,8 @@ public:
 
         results[result.value].emplace_back(key);
 
+        std::cout << "Result: " << result << std::endl;
+
         while (results[result.value].size () > 10)
         {
             results[result.value].erase(results[result.value].begin());

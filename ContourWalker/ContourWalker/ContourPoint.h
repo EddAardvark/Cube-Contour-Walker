@@ -48,18 +48,17 @@ public:
         value = other.value;
     }
     //-------------------------------------------------------------------------------------------------
-    inline ContourPoint FromContour (__int64 contour)
+    inline static ContourPoint FromContour (__int64 contour)
     {
         static double factor = pow(2, 1.0 / 3.0) - 1;
 
         ContourPoint ret;
 
-        x = VLInt::FromInt((int)ceil(contour / factor));
-        y = VLInt::FromVLInt(x);
-
+        ret.x = VLInt::FromInt((int)ceil(contour / factor));
+        ret.y = VLInt::FromVLInt(ret.x);
         ret.n = VLInt::FromInt(contour);
-        ret.cube = BigCube::FromVLInt(y);
-        ret.subcube = SubCube::FromVLInts(x, ret.n);
+        ret.cube = BigCube::FromVLInt(ret.y);
+        ret.subcube = SubCube::FromVLInts(ret.x, ret.n);
         ret.value = ret.cube.value  - ret.subcube.value;
 
         return ret;
@@ -93,31 +92,31 @@ public:
         return ret;
     }
     //----------------------------------------------------------------------------------------------------------------
-    inline ContourPoint DecrementSub ()
+    inline void DecrementSub ()
     {
         -- subcube;
         value = value + subcube.dv;
     }
     //----------------------------------------------------------------------------------------------------------------
-    inline ContourPoint IncrementSub ()
+    inline void IncrementSub ()
     {
         value = value - subcube.dv; // Value = cube - sub, so subtract
         ++ subcube;
     }
     //----------------------------------------------------------------------------------------------------------------
-    inline ContourPoint DecrementCube ()
+    inline void DecrementCube ()
     {
         -- cube;
         value = value - cube.dy;
     }
     //----------------------------------------------------------------------------------------------------------------
-    inline ContourPoint IncrementCube ()
+    inline void IncrementCube ()
     {
         value = value + cube.dy;
         ++ cube;
     }
     //----------------------------------------------------------------------------------------------------------------
-    inline ContourPoint HopSub (__int64 hop)
+    inline void HopSub (__int64 hop)
     {
         subcube.Hop(hop);
 
@@ -154,6 +153,11 @@ public:
         sstrm << "[CP (" << n << "," << subcube.x << "," << cube.root << ") =" << value << "]";
 
         return sstrm.str().c_str();
+    }
+    //------------------------------------------------------------------------------------------------------
+    inline friend std::ostream& operator << (std::ostream& os, const ContourPoint& cp)
+    {
+        return os << cp.toString();
     }
 
 }; // class
