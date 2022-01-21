@@ -41,9 +41,9 @@ public:
         std::stringstream sstrm;
 
         if (flip)
-            sstrm << z << "^3 - " << x << "^3 - " << y << " = " << value;
+            sstrm << z << "^3 - " << x << "^3 - " << y << "^3 = " << value;
         else
-            sstrm << x << "^3 + " << y << "^3 + " << z << " = " << value;
+            sstrm << x << "^3 + " << y << "^3 - " << z << "^3 = " << value;
 
         return sstrm.str().c_str();
     }

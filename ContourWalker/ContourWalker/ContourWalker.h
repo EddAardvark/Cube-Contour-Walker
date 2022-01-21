@@ -1,36 +1,59 @@
 #pragma once
 
+#include <fstream>
+
 #include "ContourPoint.h"
 #include "WalkingResults.h"
 
 class ContourWalker
 {
-
+    std::string m_result_file{ "results.txt" };
     ContourPoint current;
     WalkingResults results;
     VLInt cross;
-    __int64 hop;
-    __int64 hop_max;
+    __int64 hop{ 0 };
+    __int64 hop_max{ 0 };
+    __int64 m_contour{ 2 };
+    __int64 m_steps{ 1 };
+    __int64 m_chunk{ 500 };
+
+public:
+
+    ContourWalker(__int64 contour, __int64 steps, __int64 chunk_size)
+        : m_contour(contour)
+        , m_steps(steps)
+        , m_chunk(chunk_size)
+    {
+    }
 
     //--------------------------------------------------------------------------------------------
-    void Fill()
+    void Walk()
     {
         hop = 0;
         hop_max = 0;
         cross = VLInt::FromInt (-1);
+        current = ContourPoint::FromContour(m_contour);
 
-        do
+        std::stringstream sstrm;
+        sstrm << "Contour " << m_contour << " starting with " << current;
+        Write(sstrm.str());
+
+        for (__int64 i = 0 ; m_steps == 0 || i < m_steps ; ++i)
         {
-            FillNoDraw(0, 500);
-        } while (true);
+            FillNoDraw(m_chunk);
+            std::cout << "Chunk " << i;
+            if (m_steps > 0) std::cout << ", of " << m_steps;
+            std::cout << ", x = " << current.subcube.x << std::endl;
+        }
     }
 
-    //--------------------------------------------------------------------------------------------
-    void FillNoDraw(int x, int width)
+protected:
+
+    void FillNoDraw(__int64 width)
     {
         auto dec = 0;
 
-        while (x < width)
+        for (auto x = 0 ; x < width ; ++x)
         {
             if (hop >= 2)
             {
@@ -61,10 +84,12 @@ class ContourWalker
                 if (prev.TestValue())
                 {
                     results.Add(prev.GetResult());
+                    Write(prev.GetResult());
                 }
                 if (current.TestValue())
                 {
                     results.Add(current.GetResult());
+                    Write(current.GetResult());
                 }
 
                 auto delta = (cross.positive) ? (prev.subcube.x - cross) : cross;
@@ -76,8 +101,25 @@ class ContourWalker
                 }
                 hop = hop_max - 2;
             }
-            ++x;
         }
+    }
+
+    void Write(const Result& result)
+    {
+        std::ofstream file;
+
+        file.open(m_result_file, std::ios_base::app);
+        file << result << std::endl;
+        file.close();
+    }
+
+    void Write(const std::string & text)
+    {
+        std::ofstream file;
+
+        file.open(m_result_file, std::ios_base::app);
+        file << text << std::endl;
+        file.close();
     }
 };
 

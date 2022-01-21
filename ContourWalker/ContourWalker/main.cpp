@@ -7,6 +7,7 @@
 #include "BigCube.h"
 #include "SubCube.h"
 #include "CommandLine.h"
+#include "ContourWalker.h"
 
 void RunTests()
 {
@@ -26,9 +27,25 @@ void RunTests()
 }
 
 
-void RunCalculation(__int64 c)
+void RunCalculation(__int64 contour, __int64 steps, __int64 chunk_size)
 {
-    std::cout << "Contour = " << c << std::endl;
+    std::cout << "Contour = " << contour << std::endl;
+    if (steps == 0)
+        std::cout << "Steps = run forever" << std::endl;
+    else
+        std::cout << "Steps = " << steps << std::endl;
+    std::cout << "Chunk Size = " << chunk_size << std::endl;
+
+    ContourWalker walker(contour, steps, chunk_size);
+
+    time_t now;
+        
+    time(&now);
+    walker.Walk();
+    time_t now2;
+    time(&now2);
+
+    std::cout << "Duration : " << (now2 - now) << std::endl;
 }
 
 
@@ -38,11 +55,17 @@ int main(int argc, char* argv[])
     {
         CommandLine cmd (argc, argv);
 
+        if (cmd.ShowHelp())
+        {
+            CommandLine::ShowOptions();
+            exit(0);
+        }
+
         if (cmd.RunTests())
         {
             RunTests();
         }
-        RunCalculation(cmd.Contour());
+        RunCalculation(cmd.Contour(), cmd.Iterations (), cmd.ChunkSize());
     }
     catch (std::exception& ex)
     {
