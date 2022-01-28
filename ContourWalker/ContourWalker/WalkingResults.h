@@ -30,6 +30,8 @@ public:
     {
         result.VerifySolution();
 
+        ++count;
+
         auto key = result.Key();
 
         if (values.find(key) != values.end())
@@ -41,14 +43,12 @@ public:
 
         results[result.value].emplace_back(key);
 
-        std::cout << "Result: " << result << std::endl;
+        std::cout << "Result " << count << ": " << result << std::endl;
 
         while (results[result.value].size () > 10)
         {
             results[result.value].erase(results[result.value].begin());
         }
-
-        ++ count;
     }
 };
 

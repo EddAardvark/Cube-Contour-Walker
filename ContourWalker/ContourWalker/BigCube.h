@@ -35,33 +35,33 @@ public:
         value = other.value;
     }
 
-    inline static BigCube FromInt(__int64 n)
+    inline BigCube (__int64 n)
     {
-        auto vli = VLInt::FromInt(n);
+        root = VLInt (n);
 
-        return FromVLInt(vli);
+        Inflate();
     }
-
     //-------------------------------------------------------------------------------------------------
-    inline static BigCube FromVLInt(const VLInt& n)
+    inline BigCube (const VLInt& n)
+    {
+        root = n;
+
+        Inflate();
+    }
+    //-------------------------------------------------------------------------------------------------
+    inline void Inflate ()
     {
         // y = n^3;
         // y' = 3xn^2 + 3xn + 1
         // y'' = 6xn + 6
         // y''' = 6;
 
-        BigCube ret;
+        auto n2 = root * root;
+        auto n3 = n2 * root;
 
-        ret.root = VLInt::FromVLInt(n);
-
-        auto n2 = n * n;
-        auto n3 = n2 * n;
-
-        ret.value = n3;
-        ret.dy = (n2 + n) * 3 + 1;
-        ret.ddy = (n + 1) * 6;
-
-        return ret;
+        value = n3;
+        dy = (n2 + root) * 3 + 1;
+        ddy = (root + 1) * 6;
     }
     //-------------------------------------------------------------------------------------------------
     inline VLInt GetIncrement() const
@@ -168,7 +168,7 @@ public:
     //=========================================================================================================
     // Monitoring and Testing
     //=========================================================================================================
-    std::string toString() const
+    std::string ToString() const
     {
         std::stringstream sstrm;
 
@@ -186,16 +186,16 @@ public:
     //------------------------------------------------------------------------------------------------------
     inline friend std::ostream& operator << (std::ostream& os, const BigCube& bc)
     {
-        return os << bc.toString();
+        return os << bc.ToString();
     }
     //------------------------------------------------------------------------------------------------------
     inline static void Test()
     {
-        BigCube bc = FromInt(1000000000);
+        BigCube bc (1000000000);
 
-        bc.Verify("Test");
+        bc.Verify("Test 1");
 
-        auto vli = VLInt::FromInt(1000000000);
+        VLInt vli (1000000000);
         auto vli3 = vli.Cube();
 
         if (vli3 != bc.value)
@@ -206,6 +206,27 @@ public:
             throw std::exception(sstrm.str().c_str());
         }
 
+        VLInt eleven(11);
+        BigCube bc2(eleven);
+
+        if (bc2.value != 1331)
+        {
+            std::stringstream sstrm;
+
+            sstrm << "11^3 != 1331 , got " << bc2;
+            throw std::exception(sstrm.str().c_str());
+        }
+
+        VLInt m20(-20);
+        BigCube bc3(m20);
+
+        if (bc3.value != -8000)
+        {
+            std::stringstream sstrm;
+
+            sstrm << "(-20)^3 != -8000 , got " << bc3;
+            throw std::exception(sstrm.str().c_str());
+        }
         // Finished
 
         std::cout << "BigCube: All tests passed." << std::endl;

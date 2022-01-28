@@ -54,12 +54,23 @@ public:
 
 
     //-------------------------------------------------------------------------------------------------
-    inline static SubCube FromInts(__int64 x, __int64 n)
+    inline SubCube (__int64 _x, __int64 contour)
     {
-        return FromVLInts(VLInt::FromInt(x), VLInt::FromInt(n));
+        x = VLInt (_x);
+        n = VLInt (contour);
+
+        Inflate ();
     }
     //-------------------------------------------------------------------------------------------------
-    inline static SubCube FromVLInts(const VLInt& x, const VLInt& contour)
+    inline SubCube (const VLInt& _x, const VLInt& contour)
+    {
+        x = _x;
+        n = contour;
+
+        Inflate();
+    }
+    //-------------------------------------------------------------------------------------------------
+    inline void Inflate()
     {
         // n = contour
         // v = 3nx^2 + 3n^2x + n^3, equivalent to ax^2 + bx + c, where
@@ -67,24 +78,17 @@ public:
         // v' = +3xn^2 + 3xn + 1
         // v'' = 6xn + 6
 
-        SubCube ret;
+        auto n2 = n * n;
 
-        ret.x = x;
-        ret.n = contour;
+        a = n * 3;
+        b = n2 * 3;
+        c = n2 * n;
+        ax2 = a * 2;
+        a_plus_b = a + b;
+        dv = ax2 * x + a_plus_b;
+        ddv = ax2;
 
-        auto n2 = ret.n * ret.n;
-
-        ret.a = ret.n * 3;
-        ret.b = n2 * 3;
-        ret.c = n2 * ret.n;
-        ret.ax2 = ret.a * 2;
-        ret.a_plus_b = ret.a + ret.b;
-        ret.dv = ret.ax2 * x + ret.a_plus_b;
-        ret.ddv = ret.ax2;
-
-        ret.value = ret.CalculateValue();
-
-        return ret;
+        value = CalculateValue();
     }
     //-------------------------------------------------------------------------------------------------
     inline VLInt CalculateValue () const
@@ -161,7 +165,7 @@ public:
     //=========================================================================================================
     // Monitoring and Testing
     //=========================================================================================================
-    inline std::string toString () const
+    inline std::string ToString () const
     {
         std::stringstream ret;
 
@@ -172,7 +176,7 @@ public:
     //------------------------------------------------------------------------------------------------------
     inline friend std::ostream& operator << (std::ostream& os, const SubCube& vli)
     {
-        return os << vli.toString();
+        return os << vli.ToString();
     }
     //--------------------------------------------------------------------------------------------
     inline std::string FullText (const char * where) const
@@ -186,7 +190,7 @@ public:
     //--------------------------------------------------------------------------------------------
     inline void Verify(const char* where) const
     {
-        auto good = SubCube::FromVLInts(x, n);
+        SubCube good (x, n);
 
         if (good.value != value)
         {
@@ -247,7 +251,7 @@ public:
     //--------------------------------------------------------------------------------------------
     inline static void Test ()
     {
-        auto sc = FromInts(1, 1);
+        SubCube sc (1, 1);
 
         if (sc.value.ToInt () != 7) throw std::exception("SC(1,1) value");
         if (sc.dv.ToInt() != 12) throw std::exception ("SC(1,1) dv");
@@ -277,7 +281,7 @@ public:
 
         // n = 4
 
-        sc = FromInts(1, 4);
+        sc = SubCube(1, 4);
 
         if (sc.value.ToInt() != 124) throw std::exception("SC(1,4) value");
 
@@ -304,8 +308,8 @@ public:
 
         // Hop
 
-        auto sc1 = FromInts(2, 11);
-        auto sc2 = FromInts(25, 11);
+        SubCube sc1 (2, 11);
+        SubCube sc2 (25, 11);
 
         sc1.Hop(23);
         sc1.Verify("hop sc1");
