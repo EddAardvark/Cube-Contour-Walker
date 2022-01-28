@@ -33,10 +33,10 @@ public:
         std::stringstream sstrm;
         sstrm << x << "_" << y << "_" << z;
 
-        return sstrm.str().c_str();
+        return sstrm.str();
     }
 
-    inline std::string toString() const
+    inline std::string ToString() const
     {
         std::stringstream sstrm;
 
@@ -45,7 +45,7 @@ public:
         else
             sstrm << x << "^3 + " << y << "^3 - " << z << "^3 = " << value;
 
-        return sstrm.str().c_str();
+        return sstrm.str();
     }
     //--------------------------------------------------------------------------------------------
     inline void VerifySolution() const
@@ -66,7 +66,7 @@ public:
     //------------------------------------------------------------------------------------------------------
     inline friend std::ostream& operator << (std::ostream& os, const Result& res)
     {
-        return os << res.toString();
+        return os << res.ToString();
     }
 };
 // --------------------------- End of Result -----------------------------------

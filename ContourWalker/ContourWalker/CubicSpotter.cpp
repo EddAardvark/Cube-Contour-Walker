@@ -1,0 +1,1 @@
+#include "CubicSpotter.h"

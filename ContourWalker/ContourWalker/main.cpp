@@ -3,11 +3,14 @@
 
 #include <iostream>
 
+#include "VLUInt.h"
 #include "VLInt.h"
 #include "BigCube.h"
 #include "SubCube.h"
 #include "CommandLine.h"
 #include "ContourWalker.h"
+#include "FourPointCubic.h"
+
 
 void RunTests()
 {
@@ -15,9 +18,11 @@ void RunTests()
 
     try
     {
+        VLUInt::Test();
         VLInt::Test();
         BigCube::Test();
         SubCube::Test();
+        FourPointCubic::Test();
     }
     catch (std::exception & ex)
     {

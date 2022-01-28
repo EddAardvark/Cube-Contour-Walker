@@ -145,10 +145,13 @@
     <ClCompile Include="CommandLIne.cpp" />
     <ClCompile Include="ContourPoint.cpp" />
     <ClCompile Include="ContourWalker.cpp" />
+    <ClCompile Include="CubicSpotter.cpp" />
+    <ClCompile Include="FourPointCubic.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="SubCube.cpp" />
     <ClCompile Include="VLInt.cpp" />
+    <ClCompile Include="VLUInt.cpp" />
     <ClCompile Include="WalkingResults.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -156,10 +159,16 @@
     <ClInclude Include="CommandLIne.h" />
     <ClInclude Include="ContourPoint.h" />
     <ClInclude Include="ContourWalker.h" />
+    <ClInclude Include="CubicSpotter.h" />
+    <ClInclude Include="FourPointCubic.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="SubCube.h" />
     <ClInclude Include="VLInt.h" />
+    <ClInclude Include="VLUInt.h" />
     <ClInclude Include="WalkingResults.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="ContourWalker.natvis" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

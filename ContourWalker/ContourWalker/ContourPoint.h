@@ -20,14 +20,8 @@ class ContourPoint
 {
     //-------------------------------------------------------------------------------------------------
 
-    static const __int64 LIMIT = 1025L;
+    static const __int64 target = 1025L;
 
-    static VLInt max_target;
-    static VLInt min_target;
-
-    VLInt x;
-    VLInt y;
-    VLInt n;
     BigCube cube;
 
 public:
@@ -39,30 +33,28 @@ public:
     inline ContourPoint() {}
 
     inline ContourPoint(const ContourPoint & other)
+        : cube (other.cube)
+        , subcube (other.subcube)
+        , value (other.value)
     {
-        x = other.x;
-        y = other.y;
-        n = other.n;
-        cube = other.cube;
-        subcube = other.subcube;
-        value = other.value;
+        
     }
     //-------------------------------------------------------------------------------------------------
-    inline static ContourPoint FromContour (__int64 contour)
+    inline ContourPoint (__int64 contour)
     {
         static double factor = pow(2, 1.0 / 3.0) - 1;
 
-        ContourPoint ret;
-
-        ret.x = VLInt::FromInt((int)ceil(contour / factor));
-        ret.y = VLInt::FromVLInt(ret.x);
-        ret.n = VLInt::FromInt(contour);
-        ret.cube = BigCube::FromVLInt(ret.y);
-        ret.subcube = SubCube::FromVLInts(ret.x, ret.n);
-        ret.value = ret.cube.value  - ret.subcube.value;
-
-        return ret;
+        auto x = VLInt((int)ceil(contour / factor));
+        auto y = VLInt(x);
+        auto n = VLInt(contour);
+        cube = BigCube(y);
+        subcube = SubCube(x, n);
+        value = cube.value  - subcube.value;
     }
+    inline const VLInt& X() const { return subcube.x; }
+    inline const VLInt& Y() const { return cube.root; }
+    inline const VLInt& Value() const { return value; }
+    inline const bool IsPositive() const { return value.positive; }
     //-------------------------------------------------------------------------------------------------
     inline ContourPoint GetNextX () const
     {
@@ -130,34 +122,24 @@ public:
     //--------------------------------------------------------------------------------------------
     inline bool TestValue () const
     {
-        if (value.positive)
-        {
-            if (VLInt::Compare(value, max_target) <= 0)
-            {
-                return true;
-            }
-        }
-        else if (VLInt::Compare(value, min_target) >= 0)
-        {
-            return true;
-        }
-        return false;
+        return value.TestSmall(target);
     }
     //=========================================================================================================
     // Monitoring and Testing
     //=========================================================================================================
     
-    inline std::string toString () const
+    inline std::string ToString () const
     {
         std::stringstream sstrm;
-        sstrm << "[CP (" << n << "," << subcube.x << "," << cube.root << ") =" << value << "]";
+        sstrm << "[Contour = " << subcube.n << " (" << subcube.x << "," << cube.root << ") = " << value;
 
-        return sstrm.str().c_str();
+        return sstrm.str();
+
     }
     //------------------------------------------------------------------------------------------------------
     inline friend std::ostream& operator << (std::ostream& os, const ContourPoint& cp)
     {
-        return os << cp.toString();
+        return os << cp.ToString();
     }
 
 }; // class

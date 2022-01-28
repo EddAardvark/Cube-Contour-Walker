@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+
+	<Type Name="VLInt">
+		<DisplayString>
+			{{ Sign={positive?"":"-"}, Value={value}}}
+		</DisplayString>
+	</Type>
+
+	<Type Name="VLUInt">
+		<DisplayString>
+			{{L={length}, V={value}}}
+		</DisplayString>
+	</Type>
+
+	<Type Name="ContourPoint">
+		<DisplayString>
+			{{ X={subcube.x}, Y={cube.root}, V={value}}
+		</DisplayString>
+	</Type>
+
+
+
+	
+	
+	
+
+</AutoVisualizer>
