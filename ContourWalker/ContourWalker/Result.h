@@ -5,7 +5,7 @@
 #include <sstream>
 #include <iostream>
 
-#include "VLInt.h"
+#include "..\Common\VLInt.h"
 
 class Result
 {
@@ -62,6 +62,47 @@ public:
             sstrm << "Result: [" << (*this) << "], got " << val;
             throw std::exception(sstrm.str().c_str());
         }
+    }
+    //--------------------------------------------------------------------------------------------
+    inline void ReduceToLowest(__int64 c) const
+    {/*
+        __int64 n = CommonFactor();
+
+        if (n > 1)
+        {
+            x = x / n;
+            y = y / n;
+            z = z / n;
+        }
+        */
+    }
+    inline __int64 CommonFactor () const
+    {/*
+        auto dm1 = x.value.DivMod(c).second;
+        auto dm2 = y.value.DivMod(c).second;
+        auto dm3 = z.value.DivMod(c).second;
+
+        if (dm1 == 0 && dm2 == 0 && dm3 == 0)
+        {
+            return c;
+        }
+
+        if (dm1 == 0) dm1 = c;
+        if (dm2 == 0) dm2 = c;
+        if (dm3 == 0) dm3 = c;
+
+        return hcf(hcf(dm1, dm2), dm3);
+    }
+    inline static __int64 hcf(__int64 n1, __int64 n2)
+    {
+        if (n1 == n2) return n1;
+
+        if (n1 > n2) n1 = n1 % n2;
+        else if (n2 > n1) n2 = n2 % n1;
+
+        return hcf(n1, n2);
+        */
+        return 1;
     }
     //------------------------------------------------------------------------------------------------------
     inline friend std::ostream& operator << (std::ostream& os, const Result& res)

@@ -3,13 +3,13 @@
 
 #include <iostream>
 
-#include "VLUInt.h"
-#include "VLInt.h"
-#include "BigCube.h"
+#include "..\Common\VLUInt.h"
+#include "..\Common\VLInt.h"
+#include "..\Common\BigCube.h"
 #include "SubCube.h"
-#include "CommandLine.h"
+#include "ContourCommandLine.h"
 #include "ContourWalker.h"
-#include "FourPointCubic.h"
+#include "PolynomialFitter.h"
 
 
 void RunTests()
@@ -22,7 +22,7 @@ void RunTests()
         VLInt::Test();
         BigCube::Test();
         SubCube::Test();
-        FourPointCubic::Test();
+        PolynomialFitter::Test();
     }
     catch (std::exception & ex)
     {
@@ -32,16 +32,9 @@ void RunTests()
 }
 
 
-void RunCalculation(__int64 contour, __int64 steps, __int64 chunk_size)
+void RunCalculation(const ContourCommandLine& cmd)
 {
-    std::cout << "Contour = " << contour << std::endl;
-    if (steps == 0)
-        std::cout << "Steps = run forever" << std::endl;
-    else
-        std::cout << "Steps = " << steps << std::endl;
-    std::cout << "Chunk Size = " << chunk_size << std::endl;
-
-    ContourWalker walker(contour, steps, chunk_size);
+    ContourWalker walker(cmd);
 
     time_t now;
         
@@ -58,11 +51,11 @@ int main(int argc, char* argv[])
 {
     try
     {
-        CommandLine cmd (argc, argv);
+        ContourCommandLine cmd (argc, argv);
 
         if (cmd.ShowHelp())
         {
-            CommandLine::ShowOptions();
+            ContourCommandLine::ShowOptions();
             exit(0);
         }
 
@@ -70,12 +63,12 @@ int main(int argc, char* argv[])
         {
             RunTests();
         }
-        RunCalculation(cmd.Contour(), cmd.Iterations (), cmd.ChunkSize());
+        RunCalculation(cmd);
     }
     catch (std::exception& ex)
     {
         std::cout << ex.what() << std::endl;
-        CommandLine::ShowOptions();
+        ContourCommandLine::ShowOptions();
         exit(-1);
     }
 

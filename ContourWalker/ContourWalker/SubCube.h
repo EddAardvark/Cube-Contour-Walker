@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <iostream>
 
-#include "VLInt.h"
+#include "..\Common\VLInt.h"
 
 //-------------------------------------------------------------------------------------------------
 // Implements a number of the form 3nx^2 + 3n^2x + n^3, equivalent to (x+n)^3 - x^3

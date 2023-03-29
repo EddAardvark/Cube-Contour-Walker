@@ -1,7 +1,7 @@
 #pragma once
 
-#include "VLInt.h"
-#include "BigCube.h"
+#include "..\Common\VLInt.h"
+#include "..\Common\BigCube.h"
 #include "SubCube.h"
 #include "Result.h"
 
@@ -20,22 +20,24 @@ class ContourPoint
 {
     //-------------------------------------------------------------------------------------------------
 
-    static const __int64 target = 1025L;
+    static const __int64 target_base = 1025L;
 
-    BigCube cube;
 
 public:
 
+    BigCube cube;
     SubCube subcube;
-
     VLInt value;
+    VLInt target;
 
-    inline ContourPoint() {}
+    inline ContourPoint()
+        : target (target_base) {}
 
     inline ContourPoint(const ContourPoint & other)
         : cube (other.cube)
         , subcube (other.subcube)
         , value (other.value)
+        , target (other.target)
     {
         
     }
@@ -47,12 +49,19 @@ public:
         auto x = VLInt((int)ceil(contour / factor));
         auto y = VLInt(x);
         auto n = VLInt(contour);
+        
+        target = target_base;
+        //target = target * contour;
+        //target = target * contour;
+        //target = target * contour;
+
         cube = BigCube(y);
         subcube = SubCube(x, n);
         value = cube.value  - subcube.value;
     }
     inline const VLInt& X() const { return subcube.x; }
     inline const VLInt& Y() const { return cube.root; }
+    inline const VLInt& Contour() const { return subcube.n; }
     inline const VLInt& Value() const { return value; }
     inline const bool IsPositive() const { return value.positive; }
     //-------------------------------------------------------------------------------------------------
@@ -122,7 +131,7 @@ public:
     //--------------------------------------------------------------------------------------------
     inline bool TestValue () const
     {
-        return value.TestSmall(target);
+        return value.value < target.value;
     }
     //=========================================================================================================
     // Monitoring and Testing

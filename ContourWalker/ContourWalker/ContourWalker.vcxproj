@@ -120,6 +120,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ShowProgress>NotSet</ShowProgress>
+      <AdditionalDependencies>$(SolutionDir)$(Platform)\$(Configuration)\common.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -141,34 +143,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BigCube.cpp" />
-    <ClCompile Include="CommandLIne.cpp" />
+    <ClCompile Include="ContourCommandLIne.cpp" />
     <ClCompile Include="ContourPoint.cpp" />
     <ClCompile Include="ContourWalker.cpp" />
-    <ClCompile Include="CubicSpotter.cpp" />
-    <ClCompile Include="FourPointCubic.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Polynomial.cpp" />
+    <ClCompile Include="PolynomialIterator.cpp" />
+    <ClCompile Include="PolynomialRow.cpp" />
+    <ClCompile Include="PolynomialFitter.cpp" />
     <ClCompile Include="Result.cpp" />
     <ClCompile Include="SubCube.cpp" />
-    <ClCompile Include="VLInt.cpp" />
-    <ClCompile Include="VLUInt.cpp" />
     <ClCompile Include="WalkingResults.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BigCube.h" />
-    <ClInclude Include="CommandLIne.h" />
+    <ClInclude Include="ContourCommandLIne.h" />
     <ClInclude Include="ContourPoint.h" />
     <ClInclude Include="ContourWalker.h" />
-    <ClInclude Include="CubicSpotter.h" />
-    <ClInclude Include="FourPointCubic.h" />
+    <ClInclude Include="Polynomial.h" />
+    <ClInclude Include="PolynomialIterator.h" />
+    <ClInclude Include="PolynomialRow.h" />
+    <ClInclude Include="PolynomialFitter.h" />
     <ClInclude Include="Result.h" />
     <ClInclude Include="SubCube.h" />
-    <ClInclude Include="VLInt.h" />
-    <ClInclude Include="VLUInt.h" />
     <ClInclude Include="WalkingResults.h" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="ContourWalker.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.vcxproj">
+      <Project>{abb4fb65-a2f4-4bc8-9140-2b09acf7fb38}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

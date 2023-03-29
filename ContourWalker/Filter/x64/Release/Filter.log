@@ -1,0 +1,7 @@
+﻿  FilterCommandLine.cpp
+  Filter.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 335 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Filter.vcxproj -> D:\GitHub\contour_walker\ContourWalker\x64\Release\Filter.exe
